@@ -10,11 +10,11 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family:'Segoe UI', sans-serif;
 }
 
 body{
-    background: #fdf6e3;
+    background:#fdf6e3;
     overflow-x:hidden;
 }
 
@@ -33,19 +33,6 @@ section{
     display:flex;
 }
 
-/* FLOATING HEARTS */
-.heart{
-    position:fixed;
-    color:pink;
-    animation:float 6s linear infinite;
-    font-size:14px;
-}
-
-@keyframes float{
-    0%{transform:translateY(100vh);opacity:1;}
-    100%{transform:translateY(-10vh);opacity:0;}
-}
-
 /* BUTTON */
 .btn{
     background:#ff8fa3;
@@ -59,7 +46,35 @@ section{
     box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* -------- SECTION 1 -------- */
+/* FLOATING HEARTS */
+.float-heart{
+    position:fixed;
+    bottom:-20px;
+    color:pink;
+    font-size:16px;
+    animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-110vh);opacity:0;}
+}
+
+/* VIOLET SCATTER */
+.scatter-heart{
+    position:fixed;
+    font-size:22px;
+    color:#9b5de5;
+    pointer-events:none;
+    animation:scatter 1.2s ease-out forwards;
+}
+
+@keyframes scatter{
+    0%{transform:translate(0,0) scale(0.5);opacity:1;}
+    100%{transform:translate(var(--x),var(--y)) scale(1.4);opacity:0;}
+}
+
+/* SECTION 1 */
 #home h1{
     font-size:38px;
     color:#b83280;
@@ -69,11 +84,10 @@ section{
     color:#555;
 }
 
-/* -------- SECTION 2 (GALLERY) -------- */
+/* SECTION 2 */
 #gallery{
     background:#fff6fb;
 }
-
 .gallery-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -81,24 +95,18 @@ section{
     max-width:800px;
     width:100%;
 }
-
 .gallery-grid img{
     width:100%;
     height:180px;
     object-fit:cover;
     border-radius:15px;
     box-shadow:0 6px 15px rgba(0,0,0,0.15);
-    transition:transform .3s;
-}
-.gallery-grid img:hover{
-    transform:scale(1.05);
 }
 
-/* -------- SECTION 3 (MESSAGE) -------- */
+/* SECTION 3 */
 #message{
     background:linear-gradient(135deg,#cdb4db,#ffc8dd);
 }
-
 .message-box{
     background:#ffffffdd;
     padding:30px;
@@ -106,12 +114,10 @@ section{
     max-width:700px;
     box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
-
 .message-box h2{
     color:#7b2cbf;
     margin-bottom:15px;
 }
-
 .message-box p{
     color:#444;
     line-height:1.6;
@@ -126,7 +132,9 @@ section{
 <section id="home" class="active">
     <h1>Happy Birthday, Baby! 💕</h1>
     <p>Today is all about celebrating you and the joy you bring into my life</p>
-    <button class="btn" onclick="goTo('gallery')">Start the Celebration 🎉</button>
+    <button class="btn" onclick="violetScatter(); goTo('gallery')">
+        Start the Celebration 🎉
+    </button>
 </section>
 
 <!-- SECTION 2 -->
@@ -134,7 +142,7 @@ section{
     <h1>Our Beautiful Memories 💖</h1>
 
     <div class="gallery-grid">
-        <!-- 🔴 REPLACE IMAGE PATHS BELOW -->
+        <!-- 🔴 REPLACE IMAGES HERE -->
         <img src="images/img1.jpg">
         <img src="images/img2.jpg">
         <img src="images/img3.jpg">
@@ -143,16 +151,18 @@ section{
         <img src="images/img6.jpg">
     </div>
 
-    <button class="btn" onclick="goTo('message')">Next 💌</button>
+    <button class="btn" onclick="violetScatter(); goTo('message')">
+        Next 💌
+    </button>
 </section>
 
 <!-- SECTION 3 -->
 <section id="message">
     <div class="message-box">
-        <h2>A Special Message for You 💗</h2>
+        <h2>A Special Message for You, My Love 💗</h2>
         <p>
-            Happy Birthday to the most beautiful soul in my life.  
-            You make my world brighter just by being in it.  
+            Happy Birthday to the most beautiful soul in my life.
+            You make my world brighter just by being in it.
             Every smile of yours feels like a gift meant just for me.
             <br><br>
             Thank you for loving me, supporting me, and understanding me.
@@ -161,8 +171,7 @@ section{
             I wish you endless happiness, success, and love today and always.
             I’m grateful for every single day that I get to call you mine 💕
         </p>
-        <br>
-        <h3>❤️🎂💖</h3>
+        <h3>💜💜💜</h3>
     </div>
 </section>
 
@@ -172,16 +181,31 @@ function goTo(id){
     document.getElementById(id).classList.add("active");
 }
 
-/* HEART GENERATOR */
+/* FLOATING HEARTS */
 setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(12+Math.random()*20)+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
+    const h=document.createElement("div");
+    h.className="float-heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(12+Math.random()*20)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
 },400);
+
+/* VIOLET SCATTER BLAST */
+function violetScatter(){
+    for(let i=0;i<35;i++){
+        const heart=document.createElement("div");
+        heart.className="scatter-heart";
+        heart.innerHTML="💜";
+        heart.style.left="50%";
+        heart.style.top="50%";
+        heart.style.setProperty("--x",(Math.random()*500-250)+"px");
+        heart.style.setProperty("--y",(Math.random()*500-250)+"px");
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1200);
+    }
+}
 </script>
 
 </body>
